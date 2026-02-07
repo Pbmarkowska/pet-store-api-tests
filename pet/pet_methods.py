@@ -1,12 +1,15 @@
+from dataclasses import asdict
+
 import requests
 
-from pet_store_api_tests.endpoints import PET, FIND_PET_BY_STATUS
+from endpoints import PET, FIND_PET_BY_STATUS
+from pet.pet_models import Pet
 
 
 class PetMethods:
     @staticmethod
-    def add_pet_to_store_inventory(data):
-        response = requests.post(f'{PET}', json=data)
+    def add_pet_to_store_inventory(pet: Pet):
+        response = requests.post(f'{PET}', json=asdict(pet))
         return response
 
     @staticmethod

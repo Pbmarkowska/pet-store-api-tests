@@ -1,12 +1,11 @@
-from http import HTTPStatus
-
 import requests
 
-from pet_store_api_tests.endpoints import STORE_INVENTORY
+from endpoints import STORE_INVENTORY
+from store.store_assertions import StoreAssertions
 
 
 class TestStore:
     def test_get_store_inventory(self):
         response = requests.get(f'{STORE_INVENTORY}')
-        assert response.status_code == HTTPStatus.OK
+        StoreAssertions(response).assert_store_inventory()
 
