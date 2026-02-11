@@ -2,9 +2,8 @@ from dataclasses import asdict
 
 import requests
 
-from endpoints import PET, FIND_PET_BY_STATUS
+from endpoints import PET, FIND_PET_BY_STATUS, UPLOAD_PET_IMAGE
 from pet.pet_models import Pet
-
 
 class PetMethods:
     @staticmethod
@@ -13,8 +12,17 @@ class PetMethods:
         return response
 
     @staticmethod
-    def update_pet(data):
-        response = requests.put(f'{PET}', json=data)
+    def add_pet_image(pet_id: int, image_path: str):
+        url = UPLOAD_PET_IMAGE.format(petId=pet_id)
+        with open(image_path, "rb") as img_file:
+            files = {"file": img_file}
+            response = requests.post(url, headers={"accept": "application/json"}, files=files)
+
+        return response
+
+    @staticmethod
+    def update_pet(pet: Pet):
+        response = requests.put(f'{PET}', json=asdict(pet))
         return response
 
     @staticmethod
@@ -24,12 +32,12 @@ class PetMethods:
 
     @staticmethod
     def find_pet_by_id(pet_id):
-        response = requests.get(f'{FIND_PET_BY_STATUS}/{pet_id}')
+        response = requests.get(f'{PET}/{pet_id}')
         return response
 
     @staticmethod
-    def update_pet_by_id(pet_id, data):
-        response = requests.post(f'{PET}/{pet_id}', data={data})
+    def update_pet_by_id(pet_id, pet: Pet):
+        response = requests.post(f'{PET}/{pet_id}', data=asdict(pet))
         return response
 
     @staticmethod

@@ -1,0 +1,25 @@
+import os
+
+from pet.pet_assertions import PetAssertions
+from pet.pet_methods import PetMethods
+from pet.pet_models import Pet, Category, Tags
+
+
+
+class TestPets:
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    PET_IMG_PATH = os.path.join(BASE_DIR, 'resources', 'golden-retriever-tongue-out.jpg')
+
+    def test_add_pet(self):
+        pet = Pet(name='doggie', category=Category(name="dogs"), photoUrls=['url'], tags=[Tags(name="friendly")])
+        response = PetMethods.add_pet_to_store_inventory(pet)
+        PetAssertions(response).assert_pet_added()
+
+    def test_add_pet_image(self):
+        response = PetMethods.add_pet_image(pet_id=1, image_path=self.PET_IMG_PATH)
+        PetAssertions(response).assert_pet_image_added(self.PET_IMG_PATH)
+
+    def test_get_pet_by_id(self, add_pet_and_get_id_and_name_scope_function):
+        pet_id, pet_name = add_pet_and_get_id_and_name_scope_function
+        response = PetMethods.find_pet_by_id(pet_id=pet_id)
+        PetAssertions(response).assert_pet_matches(pet_id, pet_name)

@@ -1,0 +1,1 @@
+pytest_plugins = ['pet.pet_fixtures']
