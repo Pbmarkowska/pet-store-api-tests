@@ -23,17 +23,17 @@ def _add_pet_and_get_id_and_name():
     try:
         yield pet_id, pet_name
     finally:
-        PetMethods.delete_pet(pet_id)
-
+        response = PetMethods.delete_pet(pet_id)
+        PetAssertions(response).assert_pet_deleted()
 
 @pytest.fixture(scope='class')
 def add_pet_and_get_id_and_name_scope_class():
-    with _add_pet_and_get_id_and_name() as pet_id:
-        yield pet_id
-
+    with _add_pet_and_get_id_and_name() as (pet_id, pet_name):
+        yield pet_id, pet_name
 
 
 @pytest.fixture(scope='function')
 def add_pet_and_get_id_and_name_scope_function():
-    with _add_pet_and_get_id_and_name() as pet_id:
-        yield pet_id
+    with _add_pet_and_get_id_and_name() as (pet_id, pet_name):
+        yield pet_id, pet_name
+        

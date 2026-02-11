@@ -23,3 +23,4 @@ class TestPets:
         pet_id, pet_name = add_pet_and_get_id_and_name_scope_function
         response = PetMethods.find_pet_by_id(pet_id=pet_id)
         PetAssertions(response).assert_pet_matches(pet_id, pet_name)
+

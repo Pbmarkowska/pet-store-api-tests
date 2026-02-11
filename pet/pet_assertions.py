@@ -40,3 +40,6 @@ class PetAssertions:
         assert self.data.get('id') == expected_id, f'Expected id: {expected_id}, but got {self.data["id"]}'
         assert self.data.get('name') == expected_name, f'Expected name: {expected_name}, but got {self.data["name"]}'
         return self
+
+    def assert_pet_deleted(self):
+        assert self.response.status_code == HTTPStatus.OK
