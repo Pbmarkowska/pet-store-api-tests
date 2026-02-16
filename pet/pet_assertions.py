@@ -35,7 +35,7 @@ class PetAssertions:
         assert str(expected_size) in data["message"]
         assert image_name in data["message"]
 
-    def assert_pet_matches(self, expected_id: int, expected_name: str):
+    def assert_pet_id_and_name_matches(self, expected_id: int, expected_name: str):
         assert self.response.status_code == HTTPStatus.OK, f'Expected status code: {HTTPStatus.OK}, but got {self.response.status_code}'
         assert self.data.get('id') == expected_id, f'Expected id: {expected_id}, but got {self.data["id"]}'
         assert self.data.get('name') == expected_name, f'Expected name: {expected_name}, but got {self.data["name"]}'
@@ -43,3 +43,13 @@ class PetAssertions:
 
     def assert_pet_deleted(self):
         assert self.response.status_code == HTTPStatus.OK
+
+    def assert_pet_matches(self, expected_pet: dict):
+        assert self.response.status_code == HTTPStatus.OK
+        actual_pet = self.data
+        actual_pet['photoUrls'] = sorted(actual_pet.get('photoUrls', []))
+        expected_pet['photoUrls'] = sorted(expected_pet.get('photoUrls', []))
+        actual_pet['tags'] = sorted(actual_pet.get('tags', []), key=lambda x: x['id'])
+        expected_pet['tags'] = sorted(expected_pet.get('tags', []), key=lambda x: x['id'])
+        assert actual_pet == expected_pet
+        return self

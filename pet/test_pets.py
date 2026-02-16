@@ -22,5 +22,23 @@ class TestPets:
     def test_get_pet_by_id(self, add_pet_and_get_id_and_name_scope_function):
         pet_id, pet_name = add_pet_and_get_id_and_name_scope_function
         response = PetMethods.find_pet_by_id(pet_id=pet_id)
-        PetAssertions(response).assert_pet_matches(pet_id, pet_name)
+        PetAssertions(response).assert_pet_id_and_name_matches(pet_id, pet_name)
 
+    def test_update_pet(self, add_pet_and_get_id_and_name_scope_function):
+        pet_id, _ = add_pet_and_get_id_and_name_scope_function
+
+        updated_pet = Pet(
+            id=pet_id,
+            name='andrzej',
+            category=Category(id=2, name='dogs'),
+            photoUrls=['https://example.com', 'https://example2.com'],
+            tags=[
+                Tags(id=1, name='not friendly'),
+                Tags(id=2, name='small')
+            ]
+        )
+
+        PetMethods.update_pet(updated_pet)
+        response = PetMethods.find_pet_by_id(pet_id)
+
+        PetAssertions(response).assert_pet_matches(updated_pet.to_dict())

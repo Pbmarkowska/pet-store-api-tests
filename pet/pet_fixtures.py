@@ -36,4 +36,4 @@ def add_pet_and_get_id_and_name_scope_class():
 def add_pet_and_get_id_and_name_scope_function():
     with _add_pet_and_get_id_and_name() as (pet_id, pet_name):
         yield pet_id, pet_name
-        
+
