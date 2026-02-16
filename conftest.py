@@ -1,1 +1,1 @@
-pytest_plugins = ['pet.pet_fixtures']
+pytest_plugins = ['fixtures.pet_fixtures']

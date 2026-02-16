@@ -1,9 +1,10 @@
 from dataclasses import asdict
+from pathlib import Path
 
 import requests
 
 from endpoints import PET, FIND_PET_BY_STATUS, UPLOAD_PET_IMAGE
-from pet.pet_models import Pet
+from models.pet_models import Pet
 
 class PetMethods:
     @staticmethod
@@ -12,7 +13,7 @@ class PetMethods:
         return response
 
     @staticmethod
-    def add_pet_image(pet_id: int, image_path: str):
+    def add_pet_image(pet_id: int, image_path: Path):
         url = UPLOAD_PET_IMAGE.format(petId=pet_id)
         with open(image_path, "rb") as img_file:
             files = {"file": img_file}

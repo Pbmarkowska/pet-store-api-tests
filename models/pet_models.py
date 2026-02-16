@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Optional, List
 
-from pet.mixins import ToDictMixin, FromDictMixin
+from utils.mixins import ToDictMixin, FromDictMixin
 
 
 @dataclass

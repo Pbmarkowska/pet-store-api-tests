@@ -1,14 +1,13 @@
-import os
+from pathlib import Path
 
-from pet.pet_assertions import PetAssertions
-from pet.pet_methods import PetMethods
-from pet.pet_models import Pet, Category, Tags
-
+from assertions.pet_assertions import PetAssertions
+from methods.pet_methods import PetMethods
+from models.pet_models import Category, Pet, Tags
 
 
 class TestPets:
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    PET_IMG_PATH = os.path.join(BASE_DIR, 'resources', 'golden-retriever-tongue-out.jpg')
+    BASE_DIR = Path(__file__).resolve().parent.parent.parent
+    PET_IMG_PATH = BASE_DIR / 'resources' / 'golden-retriever-tongue-out.jpg'
 
     def test_add_pet(self):
         pet = Pet(name='doggie', category=Category(name="dogs"), photoUrls=['url'], tags=[Tags(name="friendly")])

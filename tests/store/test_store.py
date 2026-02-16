@@ -1,7 +1,7 @@
 import requests
 
 from endpoints import STORE_INVENTORY
-from store.store_assertions import StoreAssertions
+from assertions.store_assertions import StoreAssertions
 
 
 class TestStore:

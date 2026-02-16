@@ -3,7 +3,7 @@ from dataclasses import asdict
 import requests
 
 from endpoints import STORE_INVENTORY, ORDER
-from store.store_models import Order
+from models.store_models import Order
 
 
 class StoreMethods:

@@ -3,9 +3,9 @@ from contextlib import contextmanager
 
 import pytest
 
-from pet.pet_assertions import PetAssertions
-from pet.pet_methods import PetMethods
-from pet.pet_models import Pet
+from assertions.pet_assertions import PetAssertions
+from methods.pet_methods import PetMethods
+from models.pet_models import Pet
 from utils.utils import generate_pet_name
 
 
