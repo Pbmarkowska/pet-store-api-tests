@@ -30,6 +30,6 @@ class Pet(ToDictMixin, FromDictMixin):
             name=data["name"],
             category=Category(**data["category"]),
             photoUrls=data.get("photoUrls", []),
-            tags=[Tags(**t) for t in data.get("tags", [])],
+            tags=[Tags(**tag) for tag in data.get("tags", [])],
             status=data.get("status")
         )
